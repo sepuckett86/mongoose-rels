@@ -120,4 +120,21 @@ describe('people routes', () => {
         });
       });
   });
+
+  it('deletes a person', async() => {
+    const person = await Person.create({
+      name: 'Susan',
+      city: 'Utrecht',
+      state: 'Utrecht',
+      profileImage: 'myImage',
+      email: 'myemail@susan.com'
+    });
+
+    return request(app)
+      .delete(`/api/v1/people/${person._id}`)
+      .then(res => {
+        const personJSON = JSON.parse(JSON.stringify(person));
+        expect(res.body).toEqual(personJSON);
+      });
+  });
 });
