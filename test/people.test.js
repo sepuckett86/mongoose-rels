@@ -17,7 +17,7 @@ describe('people routes', () => {
   afterAll(() => {
     return mongoose.connection.close();
   });
-  
+
   it('posts a person', () => {
     const person = {
       name: 'Susan',
@@ -31,6 +31,31 @@ describe('people routes', () => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           name: 'Susan',
+          email: 'myemail@susan.com',
+          __v: 0
+        });
+      });
+  });
+
+  it('posts a full person', () => {
+    const person = {
+      name: 'Susan',
+      city: 'Utrecht',
+      state: 'Utrecht',
+      profileImage: 'myImage',
+      email: 'myemail@susan.com'
+    };
+
+    return request(app)
+      .post('/api/v1/people')
+      .send(person)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          name: 'Susan',
+          city: 'Utrecht',
+          state: 'Utrecht',
+          profileImage: 'myImage',
           email: 'myemail@susan.com',
           __v: 0
         });
