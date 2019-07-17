@@ -107,14 +107,14 @@ describe('people routes', () => {
     
     return request(app)
       .patch(`/api/v1/people/${person._id}`)
-      .send({ city: 'Portland', state: 'Oregon' })
+      .send({ city: 'Portland', state: 'Oregon', profileImage: 'newImage' })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           name: 'Susan',
           city: 'Portland',
           state: 'Oregon',
-          profileImage: 'myImage',
+          profileImage: 'newImage',
           email: 'myemail@susan.com',
           __v: 0
         });
